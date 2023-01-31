@@ -44,16 +44,13 @@ class AuthService {
 
     findUser(token) {
         const user = this.database.find( user => user.token === token );
-        var userinfo = ""; 
 
-        if (user)
-        { userinfo = users.find( userinfo => userinfo.id === user.id ) }
+        if (!user)
+        { throw new Error('Token is not owned by any user'); }
+             
+        const userinfo = users.find( userinfo => userinfo.id === user.id )
 
-        else {
-            throw new Error('Token is not owned by any user'); 
-        }
-
-            return userinfo;
+        return userinfo;
     
     }
 
